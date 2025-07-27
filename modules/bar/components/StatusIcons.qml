@@ -9,7 +9,7 @@ import Quickshell.Bluetooth
 import Quickshell.Services.UPower
 import QtQuick
 import QtQuick.Layouts
-
+import "components/KeyboardLayout"
 Item {
     id: root
 
@@ -163,6 +163,19 @@ Item {
                 }
                 color: !UPower.onBattery || UPower.displayDevice.percentage > 0.2 ? root.colour : Colours.palette.m3error
                 fill: 1
+            }
+        }
+
+        // Keyboard layout icon
+        Loader {
+            id: keyboardLayout
+
+            asynchronous: true
+            active: Config.bar.status.showKeyboardLayout
+            visible: active
+
+            sourceComponent: KeyboardLayout {
+                colour: root.colour
             }
         }
     }
