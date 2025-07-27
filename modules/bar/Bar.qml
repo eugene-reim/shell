@@ -71,21 +71,36 @@ Item {
         anchors.bottom: parent.bottom
         anchors.horizontalCenter: parent.horizontalCenter
 
-        implicitWidth: Math.max(osIcon.implicitWidth, workspaces.implicitWidth, activeWindow.implicitWidth, tray.implicitWidth, clock.implicitWidth, statusIcons.implicitWidth, power.implicitWidth)
+        implicitWidth: Math.max(logoLauncher.implicitWidth, workspaces.implicitWidth, activeWindow.implicitWidth, tray.implicitWidth, clock.implicitWidth, statusIcons.implicitWidth, power.implicitWidth)
+        
+        StyledRect {
+            id: logoLauncher
 
-        OsIcon {
-            id: osIcon
-
-            anchors.horizontalCenter: parent.horizontalCenter
+            anchors.left: parent.left
+            anchors.right: parent.right
             anchors.top: parent.top
             anchors.topMargin: Appearance.padding.large
+            height: OsIcon.implicitHeight
+            implicitHeight: osIcon.implicitHeight
+
+            MouseArea {
+                anchors.fill: parent
+                onClicked: Quickshell.execDetached(["caelestia", "shell", "drawers", "toggle", "launcher"]);
+            }
+
+            OsIcon {
+                id: osIcon
+
+                anchors.horizontalCenter: parent.horizontalCenter
+                anchors.top: parent.top
+            }
         }
 
         StyledRect {
             id: workspaces
 
             anchors.horizontalCenter: parent.horizontalCenter
-            anchors.top: osIcon.bottom
+            anchors.top: logoLauncher.bottom
             anchors.topMargin: Appearance.spacing.normal
 
             radius: Appearance.rounding.full
